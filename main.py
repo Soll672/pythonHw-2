@@ -13,6 +13,7 @@ async def main():
     dp.include_router(picture_router)
     dp.include_router(anime_survey_router)
 
+
     # в самом конце
     dp.include_router(echo_router)
     # запуск бота
