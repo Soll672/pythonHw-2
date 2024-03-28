@@ -1,12 +1,16 @@
-import asyncio
-
+import asyncpg
 
 async def connect_to_db(database_url):
     return await asyncpg.create_pool(database_url)
 
-async def get_anime_list(pool):
+async def get_genres(pool):
     async with pool.acquire() as conn:
-        return await conn.fetch("SELECT * FROM anime")
+        return await conn.fetch("SELECT * FROM genres")
+
+async def get_anime_by_genre(pool, genre_id):
+    async with pool.acquire() as conn:
+        return await conn.fetch("SELECT * FROM anime WHERE genre_id=$1", genre_id)
+
 
 async def main():
     database_url = "postgresql://username:password@localhost:5432/database_name"
